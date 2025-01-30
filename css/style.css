@@ -1906,10 +1906,8 @@ h2 {
 
 /* Technology section */
 .tech-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-top: 40px;
+    max-width: 900px;
+    margin: 40px auto 0;
 }
 
 .tech-feature {
@@ -1917,25 +1915,148 @@ h2 {
     border-radius: 20px;
     padding: 40px;
     border: 1px solid rgba(0, 255, 136, 0.1);
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
 }
 
 .tech-feature:hover {
-    transform: translateY(-5px);
     border-color: var(--primary-color);
     box-shadow: var(--neon-glow);
+    transform: translateX(10px);
+}
+
+.tech-feature::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+    box-shadow: var(--neon-glow);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tech-feature:hover::before {
+    opacity: 1;
 }
 
 .tech-feature h3 {
     color: var(--primary-color);
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tech-feature h3::before {
+    content: '';
+    width: 30px;
+    height: 2px;
+    background: var(--primary-color);
+    box-shadow: var(--neon-glow);
+    transition: width 0.3s ease;
+}
+
+.tech-feature:hover h3::before {
+    width: 50px;
 }
 
 .tech-feature p {
     color: var(--text-secondary);
     font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.tech-feature p:last-child {
+    margin-bottom: 0;
+}
+
+.tech-feature__list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.tech-feature__list li {
+    color: var(--text-secondary);
+    padding-left: 25px;
+    position: relative;
+    margin-bottom: 15px;
     line-height: 1.6;
+}
+
+.tech-feature__list li::before {
+    content: '•';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    text-shadow: var(--neon-glow);
+}
+
+.tech-feature__highlight {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-shadow: var(--neon-glow);
+}
+
+/* Responsive styles for Technology section */
+@media (max-width: 1024px) {
+    .tech-features {
+        max-width: 800px;
+    }
+
+    .tech-feature {
+        padding: 35px;
+    }
+
+    .tech-feature h3 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tech-features {
+        max-width: 100%;
+    }
+
+    .tech-feature {
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+
+    .tech-feature:hover {
+        transform: none;
+    }
+
+    .tech-feature h3 {
+        font-size: 22px;
+    }
+
+    .tech-feature p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-feature {
+        padding: 20px;
+    }
+
+    .tech-feature h3 {
+        font-size: 20px;
+    }
+
+    .tech-feature p {
+        font-size: 14px;
+    }
 }
 
 /* Awards section */
@@ -1944,6 +2065,7 @@ h2 {
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     margin-top: 40px;
+    perspective: 1000px;
 }
 
 .award-card {
@@ -1952,32 +2074,170 @@ h2 {
     padding: 40px;
     text-align: center;
     border: 1px solid rgba(0, 255, 136, 0.1);
-    transition: all 0.3s;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    backdrop-filter: blur(10px);
+}
+
+.award-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(0, 255, 136, 0.05) 50%,
+        transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.award-card:hover::before {
+    transform: translateX(100%);
 }
 
 .award-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) rotateX(5deg);
     border-color: var(--primary-color);
-    box-shadow: var(--neon-glow);
+    box-shadow: var(--neon-glow),
+                0 20px 30px rgba(0, 255, 136, 0.1);
 }
 
 .award-year {
     color: var(--primary-color);
-    font-size: 28px;
+    font-size: 3rem;
     font-weight: bold;
     margin-bottom: 20px;
     text-shadow: var(--neon-glow);
+    position: relative;
+    display: inline-block;
+}
+
+.award-year::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--primary-color);
+    box-shadow: var(--neon-glow);
 }
 
 .award-card h3 {
     color: var(--text-color);
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.award-card:hover h3 {
+    color: var(--primary-color);
+    text-shadow: var(--neon-glow);
 }
 
 .award-card p {
     color: var(--text-secondary);
-    font-size: 16px;
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.award-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.award-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--primary-color);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+}
+
+.award-card:hover .award-icon {
+    transform: rotateY(180deg);
+}
+
+.award-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, 
+        rgba(0, 255, 136, 0.1) 0%,
+        transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.award-card:hover::after {
+    opacity: 1;
+}
+
+/* Responsive Styles for Awards */
+@media (max-width: 1024px) {
+    .awards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        perspective: none;
+    }
+
+    .award-year {
+        font-size: 2.5rem;
+    }
+
+    .award-card h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .awards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .award-card {
+        padding: 30px 20px;
+        transform: none !important;
+    }
+
+    .award-year {
+        font-size: 2rem;
+    }
+
+    .award-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .award-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .award-year {
+        font-size: 1.8rem;
+    }
+
+    .award-card {
+        padding: 25px 15px;
+    }
 }
 
 /* Mobile menu styles */
@@ -2594,5 +2854,107 @@ h2 {
     
     .form__group--checkbox label {
         font-size: 13px;
+    }
+}
+
+/* Partners Section Styles */
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.partner-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid rgba(0, 255, 136, 0.1);
+    transition: all 0.3s ease;
+}
+
+.partner-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--neon-glow);
+}
+
+.partner-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--primary-color);
+    box-shadow: var(--neon-glow);
+    position: relative;
+}
+
+.partner-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9) contrast(1.1);
+    transition: all 0.3s ease;
+}
+
+.partner-card:hover .partner-logo img {
+    filter: brightness(1) contrast(1.2);
+}
+
+.partner-card h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    text-shadow: var(--neon-glow);
+}
+
+.partner-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Responsive Styles for Partners */
+@media (max-width: 1024px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    .partner-logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .partner-card {
+        padding: 1.5rem;
+    }
+
+    .partner-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .partner-card p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .partners-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .partner-card {
+        max-width: 300px;
+        margin: 0 auto;
     }
 } 
